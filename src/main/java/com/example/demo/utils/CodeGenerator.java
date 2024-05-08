@@ -12,11 +12,10 @@ import java.util.Collections;
 
 public class CodeGenerator {
     public static void main(String[] args) {
-
-
+        generate();
     }
 
-    private void generate(){
+    private static void generate(){
         FastAutoGenerator.create("jdbc:mysql://localhost:3306/adopt?serverTimezone=GMT%2b8", "root", "123456")
                 .globalConfig(builder -> {
                     builder.author("rqe") // 设置作者
@@ -39,7 +38,7 @@ public class CodeGenerator {
                             .pathInfo(Collections.singletonMap(OutputFile.xml, "D:\\bishe\\pet adoption\\springboot\\src\\main\\resources\\mapper\\")); // 设置mapperXml生成路径
                 })
                 .strategyConfig(builder -> {
-                    builder.addInclude("t_simple") // 设置需要生成的表名
+                    builder.addInclude("user") // 设置需要生成的表名
                             .addTablePrefix("t_", "c_") // 设置过滤表前缀
 //                            对四个包进行配置解决'fileOverride()' 已被弃用的问题
                             .entityBuilder().enableLombok().enableFileOverride()
