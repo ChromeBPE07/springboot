@@ -38,6 +38,10 @@ public class CodeGenerator {
                             .pathInfo(Collections.singletonMap(OutputFile.xml, "D:\\bishe\\pet adoption\\springboot\\src\\main\\resources\\mapper\\")); // 设置mapperXml生成路径
                 })
                 .strategyConfig(builder -> {
+                    builder.entityBuilder().enableLombok();
+//                    builder.mapperBuilder().enableMapperAnnotation().build();//在生成的每一个mapper文件代码头部加入@Mapper注解
+                    builder.controllerBuilder().enableHyphenStyle()  // 开启驼峰转连字符
+                            .enableRestStyle();  // 开启生成@RestController 控制器
                     builder.addInclude("user") // 设置需要生成的表名
                             .addTablePrefix("t_", "c_") // 设置过滤表前缀
 //                            对四个包进行配置解决'fileOverride()' 已被弃用的问题
