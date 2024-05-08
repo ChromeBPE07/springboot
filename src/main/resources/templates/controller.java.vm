@@ -1,7 +1,9 @@
 package ${package.Controller};
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.web.bind.annotation.*;
+
 import javax.annotation.Resource;
 import java.util.List;
 
@@ -35,51 +37,53 @@ import ${superControllerClassPackage};
 class ${table.controllerName}#if(${superControllerClass}) : ${superControllerClass}()#end
 
 #else
-#if(${superControllerClass})
-public class ${table.controllerName} extends ${superControllerClass} {
-#else
-public class ${table.controllerName} {
-#end
+    #if(${superControllerClass})
+    public class ${table.controllerName} extends ${superControllerClass} {
+    #else
+    public class ${table.controllerName} {
+    #end
 
-    @Resource
-    private ${table.serviceName} ${table.entityPath}Service;
+@Resource
+private ${table.serviceName} ${table.entityPath}Service;
 
-    //新增和修改
-    @PostMapping
-    public boolean save(@RequestBody ${entity} ${table.entityPath}){
-            return ${table.entityPath}Service.saveOrUpdate(${table.entityPath});
-            }
+//新增和修改
+@PostMapping
+public boolean save(@RequestBody ${entity} ${table.entityPath}){
+        return ${table.entityPath}Service.saveOrUpdate(${table.entityPath});
+        }
 
-##            删除
-    @DeleteMapping("/{id}")
-    public Boolean delete(@PathVariable Integer id) {
-            return ${table.entityPath}Service.removeById(id);
-            }
+    ##            删除
+@DeleteMapping("/{id}")
+public Boolean delete(@PathVariable Integer id){
+        return ${table.entityPath}Service.removeById(id);
+        }
 
-##            查询所有数据
-    @GetMapping
-    public List<${entity}> findAll() {
-            return ${table.entityPath}Service.list();
-            }
+    ##            查询所有数据
+@GetMapping
+public List<${entity}> findAll(){
+        return ${table.entityPath}Service.list();
+        }
 
-##            根据id查询
-    @GetMapping("/{id}")
-    public ${entity} findOne(@PathVariable Integer id) {
-            return ${table.entityPath}Service.getById(id);
-            }
+    ##            根据id查询
+@GetMapping("/{id}")
+public ${entity} findOne(@PathVariable Integer id){
+        return ${table.entityPath}Service.getById(id);
+        }
 
-    //批量删除
-    @PostMapping("/del/batch")
-    public boolean deleteBatch(@RequestBody List<Integer> ids){
-            return ${table.entityPath}Service.removeBatchByIds(ids);
-            };
+//批量删除
+@PostMapping("/del/batch")
+public boolean deleteBatch(@RequestBody List<Integer> ids){
+        return ${table.entityPath}Service.removeBatchByIds(ids);
+        };
 
-##            分页查询
-    @GetMapping("/page")
-    public Page<${entity}> findPage(@RequestParam Integer pageNum,
-    @RequestParam Integer pageSize) {
-            return ${table.entityPath}Service.page(new Page<>(pageNum, pageSize));
-            }
+    ##            分页查询
+@GetMapping("/page")
+public Page<${entity}> findPage(@RequestParam Integer pageNum,
+@RequestParam Integer pageSize){
+        QueryWrapper<${entity}> queryWrapper=new QueryWrapper<>();
+        queryWrapper.orderByDesc("id");  //倒序排序
+        return ${table.entityPath}Service.page(new Page<>(pageNum,pageSize),queryWrapper);
+        }
 
 
         }

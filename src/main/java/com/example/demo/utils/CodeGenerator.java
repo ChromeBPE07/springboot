@@ -34,7 +34,7 @@ public class CodeGenerator {
                 }))
                 .packageConfig(builder -> {
                     builder.parent("com.example.demo") // 设置父包名
-                            .moduleName("") // 设置父包模块名
+                            .moduleName(null) // 设置父包模块名
                             .pathInfo(Collections.singletonMap(OutputFile.xml, "D:\\bishe\\pet adoption\\springboot\\src\\main\\resources\\mapper\\")); // 设置mapperXml生成路径
                 })
                 .strategyConfig(builder -> {
@@ -46,7 +46,7 @@ public class CodeGenerator {
                             .mapperBuilder().enableFileOverride()
                             .serviceBuilder().enableFileOverride();
                 })
-                .templateEngine(new FreemarkerTemplateEngine()) // 使用Freemarker引擎模板，默认的是Velocity引擎模板
+//                .templateEngine(new FreemarkerTemplateEngine()) // 使用Freemarker引擎模板，默认的是Velocity引擎模板
                 .execute();
     }
 }
