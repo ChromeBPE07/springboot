@@ -27,9 +27,14 @@ public class User implements Serializable {
       @TableId(value = "id", type = IdType.AUTO)
       private Integer id;
 
-    private String username;
+      @ApiModelProperty("用户名")
+      private String username;
 
-    private String password;
+      @ApiModelProperty("昵称")
+      private String nickname;
+
+      @ApiModelProperty("密码")
+      private String password;
 
       @ApiModelProperty("性别")
       private String sex;
@@ -40,16 +45,17 @@ public class User implements Serializable {
       @ApiModelProperty("电话")
       private String telephone;
 
-      @ApiModelProperty("Email")
+      @ApiModelProperty("邮箱")
       private String email;
 
       @ApiModelProperty("地址")
       private String address;
 
-    private String pic;
+      @ApiModelProperty("头像")
+      private String avatarurl;
 
       @ApiModelProperty("有无领养宠物的经历 0 是没有 1 是由")
       private Integer state;
 
-    private LocalDateTime createtime;
+      private LocalDateTime createtime;
 }

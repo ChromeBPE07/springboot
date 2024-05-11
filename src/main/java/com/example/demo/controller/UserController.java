@@ -3,6 +3,11 @@ package com.example.demo.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.example.demo.common.Constants;
+import com.example.demo.common.Result;
+import com.example.demo.controller.dto.UserDTO;
+import freemarker.template.utility.StringUtil;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -27,6 +32,29 @@ import org.springframework.web.bind.annotation.RestController;
     
 @Resource
 private IUserService userService;
+
+//登录,@RequestBody注解：将前端json文件转为后端对象
+@PostMapping("/login")
+public Result login(@RequestBody UserDTO userDTO){
+        String username = userDTO.getUsername();
+        String password = userDTO.getPassword();
+        if (StringUtils.isBlank(username) || StringUtils.isBlank(password)){
+                return Result.error(Constants.CODE_400, "参数错误");
+        }
+        UserDTO dto = userService.login(userDTO);
+        return Result.success(dto);
+}
+
+        //新增和修改
+        @PostMapping("/register")
+        public Result register(@RequestBody UserDTO userDTO){
+        String username = userDTO.getUsername();
+        String password = userDTO.getPassword();
+        if (StringUtils.isBlank(username) || StringUtils.isBlank(password)){
+                return Result.error(Constants.CODE_400, "参数错误");
+        }
+        return Result.success(userService.register(userDTO));
+        }
 
 //新增和修改
 @PostMapping
