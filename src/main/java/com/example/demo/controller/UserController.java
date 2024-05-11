@@ -45,7 +45,7 @@ public Result login(@RequestBody UserDTO userDTO){
         return Result.success(dto);
 }
 
-        //新增和修改
+        //注册
         @PostMapping("/register")
         public Result register(@RequestBody UserDTO userDTO){
         String username = userDTO.getUsername();
@@ -76,6 +76,14 @@ public List<User> findAll(){
 public User findOne(@PathVariable Integer id){
         return userService.getById(id);
         }
+
+        @GetMapping("/username/{username}")
+        public Result findOne(@PathVariable String username){
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("username", username);
+                return Result.success(userService.getOne(queryWrapper));
+        }
+
 
 //批量删除
 @PostMapping("/del/batch")
