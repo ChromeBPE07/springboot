@@ -62,21 +62,25 @@ public boolean save(@RequestBody User user){
         return userService.saveOrUpdate(user);
         }
 
+        //删除
     @DeleteMapping("/{id}")
 public Boolean delete(@PathVariable Integer id){
         return userService.removeById(id);
         }
 
+        //查询所有数据
     @GetMapping
 public List<User> findAll(){
         return userService.list();
         }
 
+        //根据id搜索结果
     @GetMapping("/{id}")
 public User findOne(@PathVariable Integer id){
         return userService.getById(id);
         }
 
+        //根据用户名查找并返回用户数据
         @GetMapping("/username/{username}")
         public Result findOne(@PathVariable String username){
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
@@ -91,6 +95,7 @@ public boolean deleteBatch(@RequestBody List<Integer> ids){
         return userService.removeBatchByIds(ids);
         };
 
+//搜索
     @GetMapping("/page")
 public Page<User> findPage(@RequestParam Integer pageNum,
                            @RequestParam Integer pageSize,
