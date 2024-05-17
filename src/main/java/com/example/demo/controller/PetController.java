@@ -13,6 +13,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -73,12 +74,29 @@ public boolean deleteBatch(@RequestBody List<Integer> ids){
     @GetMapping("/page")
 public Page<Pet> findPage(@RequestParam Integer pageNum,
                            @RequestParam Integer pageSize,
-                           @RequestParam(defaultValue = "") String petname){
+                           @RequestParam(defaultValue = "") String petname,
+                           @RequestParam(defaultValue = "") String pettype,
+                           @RequestParam(defaultValue = "") String sex,
+                           @RequestParam(defaultValue = "") String state ){
         IPage<Pet> page = new Page<>(pageNum, pageSize);
         QueryWrapper<Pet> queryWrapper=new QueryWrapper<>();
+
         queryWrapper.orderByDesc("id");  //倒序排序
-        queryWrapper.like("petname", petname);
-        return petService.page(new Page<>(pageNum,pageSize),queryWrapper);
+
+        if (!"".equals(petname)) {
+                queryWrapper.like("petname", petname);
+        }
+        if (!"".equals(pettype)) {
+                    queryWrapper.like("pettype", pettype);
+            }
+        if (!"".equals(sex)) {
+                    queryWrapper.like("sex", sex);
+            }
+        if (!"".equals(state)) {
+                    queryWrapper.like("state", state);
+            }
+
+            return petService.page(new Page<>(pageNum,pageSize),queryWrapper);
         }
 
 

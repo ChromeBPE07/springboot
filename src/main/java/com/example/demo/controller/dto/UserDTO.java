@@ -10,4 +10,5 @@ public class UserDTO {
     private String password;
     private String nickname;
     private String avatarurl;
+    private String role;
 }

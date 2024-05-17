@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
 
+    //登录验证
     @Override
     public UserDTO login(UserDTO userDTO) {
         User one = getUserInfo(userDTO);
@@ -34,6 +35,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     }
 
+    //注册
     @Override
     public User register(UserDTO userDTO) {
         User one = getUserInfo(userDTO);
@@ -51,6 +53,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("username", userDTO.getUsername());
         queryWrapper.eq("password", userDTO.getPassword());
+        queryWrapper.eq("role" , userDTO.getRole());
         User one = getOne(queryWrapper); //从数据库查询用户信息
         return one;
     }

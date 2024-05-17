@@ -57,5 +57,8 @@ public class User implements Serializable {
       @ApiModelProperty("有无领养宠物的经历 false 是没有 true 是有")
       private String state;
 
+      @ApiModelProperty("身份")
+      private String role;
+
       private LocalDateTime createtime;
 }
